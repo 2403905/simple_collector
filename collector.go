@@ -94,7 +94,7 @@ func getSaver(t string) (func(resp []*ResponseData, outputFile string) error) {
 	case "json":
 		return saveJson
 	default:
-		logger.Get().Errorf("ouput type %s is not supported \n", t)
+		logger.Get().Errorf("output type %s is not supported \n", t)
 		return nil
 	}
 }

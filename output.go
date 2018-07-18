@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"github.com/vidmed/logger"
 )
 
@@ -22,11 +21,11 @@ type Output struct {
 	saver        func(resp []*ResponseData, outputFile string) error
 }
 
-func NewOutput(saver func(resp []*ResponseData, outputFile string) error) (*Output, error)  {
+func NewOutput(saver func(resp []*ResponseData, outputFile string) error) (*Output, error) {
 	if saver == nil {
 		return nil, fmt.Errorf("saver not set")
 	}
-	return &Output{saver:saver}, nil
+	return &Output{saver: saver}, nil
 }
 
 func (s Output) saveResult(outputFile string) error {
@@ -37,39 +36,29 @@ func (s Output) saveResult(outputFile string) error {
 	return s.saver(s.ResponseData, outputFile)
 }
 
-func saveJson(resp []*ResponseData, outputFile string) (err error) {
+func saveJson(resp []*ResponseData, outputFile string) error {
 	data, err := json.Marshal(resp)
 	if err != nil {
-		logger.Get().Errorln(err)
-		return
+		return err
 	}
-	err = ioutil.WriteFile(outputFile, data, 0644)
-	if err != nil {
-		logger.Get().Errorln(err)
-		return
-	}
-	return
+	return writeFile(outputFile, data)
 }
 
-func saveText(resp []*ResponseData, outputFile string) (err error) {
-	f, err := os.Create(outputFile)
-	if err != nil {
-		logger.Get().Errorln(err)
-		return
-	}
-	defer f.Close()
-
+func saveText(resp []*ResponseData, outputFile string) error {
 	var str string
- 	for _, r :=range resp {
+	for _, r := range resp {
 		str = str + fmt.Sprintf(
 			"url:%s code:%d, latency%s, headers:%v, error:%s \n",
 			r.Url, r.ResponseCode, r.Latency, r.Headers, r.Error)
 	}
 
-	_, err =f.Write([]byte(str))
+	return writeFile(outputFile, []byte(str))
+}
+
+func writeFile(filename string, data []byte) (err error) {
+	err = ioutil.WriteFile(filename, data, 0644)
 	if err != nil {
 		logger.Get().Errorln(err)
-		return
 	}
 	return
 }

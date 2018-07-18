@@ -5,6 +5,7 @@ import (
 	"os"
 	"simple_collector"
 	"github.com/vidmed/logger"
+	"strconv"
 )
 
 var (
@@ -37,6 +38,13 @@ func Environment() {
 	}
 	if t, ok := os.LookupEnv("OUTPUT_FILE_TYPE"); ok {
 		outputFileType = t
+	}
+	if l, ok := os.LookupEnv("LOG_LEVEL"); ok {
+		var err error
+		logLevel, err = strconv.Atoi(l)
+		if err != nil {
+			logger.Get().Errorf("Can't convert environment variable LOG_LEVEL=%s to integer", l)
+		}
 	}
 }
 
