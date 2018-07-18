@@ -1,12 +1,38 @@
 # Simple Collector
 
-Don't forget to add `$GOPATH/bin` to your `$PATH`.
-### Clone simple_collector
-### Install dep (if not installed)
-```bash
-go get -u github.com/golang/dep/cmd/dep
-```
-### Run
-```bash
-go build && ./cmd -source source.txt -output a.json -t json
-```
+### Installation with docker
+1. Install docker and docker-compose
+2. Clone repo simple_collector
+3. Go to repo directory
+4. Prepare directory
+   ```bash
+   mkdir -p /tmp/simple_collector
+   cp source/source.txt /tmp/simple_collector/
+   ```
+5. Run
+   ```bash
+   docker-compose up
+   ```
+6. Output
+   ```bash
+   cat /tmp/simple_collector/output.txt
+   ```
+
+
+### Installation without docker
+1. Add `$GOPATH/bin` to your `$PATH`.
+2. Clone repo simple_collector
+3. Install dep (if not installed)
+   ```bash
+   go get -u github.com/golang/dep/cmd/dep
+   ```
+4. Go to repo directory
+5. Run
+   ```bash
+   cd cmd
+   go build && ./cmd -source source.txt -output output.json -t json
+   ```
+6. Output
+   ```bash
+   cat output.json
+   ```

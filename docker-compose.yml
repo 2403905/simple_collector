@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  simple_collector:
+    build: .
+    image: simple_collector:latest
+    volumes:
+      - /tmp/simple_collector:/source
+      - /tmp/simple_collector:/output:rw
+    environment:
+      SOURCE_FILE: /source/source.txt
+      OUTPUT_FILE: /output/output.txt
+      OUTPUT_FILE_TYPE: txt
+      LOG_LEVEL: 5

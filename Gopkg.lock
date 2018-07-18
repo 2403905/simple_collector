@@ -2,20 +2,104 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/Gurpartap/logrus-stack"
+  packages = ["."]
+  revision = "89c00d8a28f43c567d92eb81a2945301a6a9fbb9"
+
+[[projects]]
+  name = "github.com/certifi/gocertifi"
+  packages = ["."]
+  revision = "deb3ae2ef2610fde3330947281941c562861188b"
+  version = "2018.01.18"
+
+[[projects]]
+  name = "github.com/evalphobia/logrus_sentry"
+  packages = ["."]
+  revision = "b78b27461c8163c45abf4ab3a8330d2b1ee9456a"
+  version = "v0.4.6"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/facebookgo/stack"
+  packages = ["."]
+  revision = "751773369052141c013c6e827a71e8f35c07879c"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/getsentry/raven-go"
+  packages = ["."]
+  revision = "ed7bcb39ff10f39ab08e317ce16df282845852fa"
+
+[[projects]]
+  name = "github.com/mattn/go-colorable"
+  packages = ["."]
+  revision = "167de6bfdfba052fa6b2d3664c8f5272e23c9072"
+  version = "v0.0.9"
+
+[[projects]]
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mgutz/ansi"
+  packages = ["."]
+  revision = "9520e82c474b0a04dd04f8a40959027271bab992"
+
+[[projects]]
   name = "github.com/pkg/errors"
   packages = ["."]
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
+  version = "v1.0.5"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/stgleb/logrus-logstash-hook"
+  packages = ["."]
+  revision = "2e2a0b59c83ee7fdbbc6abcbeada723832b40e65"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/vidmed/logger"
+  packages = ["."]
+  revision = "2720642fbce1e2b6bf006d24066519666d8c9d42"
+
+[[projects]]
+  name = "github.com/x-cray/logrus-prefixed-formatter"
+  packages = ["."]
+  revision = "bb2702d423886830dee131692131d35648c382e2"
+  version = "v0.5.2"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["ssh/terminal"]
+  revision = "a2144134853fc9a27a7b1e3eb4f19f1a76df13c9"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","context/ctxhttp"]
-  revision = "d0887baf81f4598189d4e12a37c6da86f0bba4d0"
+  revision = "8887df42c721e930089d31b28391090a10a497d7"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix","windows"]
+  revision = "ac767d655b305d4e9612f5f6e33120b9176c4ad4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "64145bd34415615306624364990b36da973944cddb4a94cd3b07b3fcba0fce41"
+  inputs-digest = "cd045463fa52c9f3b19ffcaafd210a22f6f3c92f977ce6bc880d0d5f2d5c8dd9"
   solver-name = "gps-cdcl"
   solver-version = 1
