@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"github.com/vidmed/logger"
 )
 
 type ResponseData struct {
@@ -39,12 +40,12 @@ func (s Output) saveResult(outputFile string) error {
 func saveJson(resp []*ResponseData, outputFile string) (err error) {
 	data, err := json.Marshal(resp)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.Get().Errorln(err)
 		return
 	}
 	err = ioutil.WriteFile(outputFile, data, 0644)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.Get().Errorln(err)
 		return
 	}
 	return
@@ -53,7 +54,7 @@ func saveJson(resp []*ResponseData, outputFile string) (err error) {
 func saveText(resp []*ResponseData, outputFile string) (err error) {
 	f, err := os.Create(outputFile)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.Get().Errorln(err)
 		return
 	}
 	defer f.Close()
@@ -67,7 +68,7 @@ func saveText(resp []*ResponseData, outputFile string) (err error) {
 
 	_, err =f.Write([]byte(str))
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.Get().Errorln(err)
 		return
 	}
 	return

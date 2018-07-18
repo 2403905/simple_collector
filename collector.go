@@ -1,31 +1,37 @@
 package simple_collector
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 	"golang.org/x/net/context/ctxhttp"
 	"context"
+	"github.com/vidmed/logger"
+	"os"
 )
 
 var (
-	maxWorkerCount = int(100)
+	maxWorkerCount = int(10000)
 )
 
 func Run(sourceFile, outputFile, outputFileType string) {
 	jobs := make(chan string, maxWorkerCount)
 	results := make(chan *ResponseData, maxWorkerCount)
 
+	// init output method
 	output, err := NewOutput(getSaver(outputFileType))
 	if err != nil {
-		fmt.Println(err)
-		return
+		logger.Get().Errorln(err)
+		os.Exit(1)
 	}
 
 	u, err := getJobs(sourceFile)
 	if err != nil {
-		fmt.Println(err)
-		return
+		logger.Get().Errorln(err)
+		os.Exit(1)
+	}
+
+	if maxWorkerCount > len(u) {
+		maxWorkerCount = len(u)
 	}
 
 	for w := 1; w <= maxWorkerCount; w++ {
@@ -47,13 +53,15 @@ func Run(sourceFile, outputFile, outputFileType string) {
 	output.ResponseData = data
 	err = output.saveResult(outputFile)
 	if err != nil {
-		fmt.Println(err)
+		logger.Get().Errorln(err)
+		os.Exit(1)
 	}
+	logger.Get().Info("Well done.")
 }
 
 func worker(jobs <-chan string, results chan<- *ResponseData) {
 	for j := range jobs {
-		res := &ResponseData{Url:j}
+		res := &ResponseData{Url: j}
 		resp, latency, err := Send(j)
 		if err != nil {
 			res.Error = err.Error()
@@ -86,7 +94,7 @@ func getSaver(t string) (func(resp []*ResponseData, outputFile string) error) {
 	case "json":
 		return saveJson
 	default:
-		fmt.Printf("ouput type %s is not supported \n", t)
+		logger.Get().Errorf("ouput type %s is not supported \n", t)
 		return nil
 	}
 }
