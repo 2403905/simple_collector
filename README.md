@@ -2,9 +2,9 @@
 
 ### Installation with docker
 1. Install docker and docker-compose
-2. Clone repo simple_collector
-3. Go to repo directory
-4. Prepare directory
+2. Clone repository simple_collector
+3. Go to repository directory
+4. Prepare i/o directory
    ```bash
    mkdir -p /tmp/simple_collector
    cp source/source.txt /tmp/simple_collector/
@@ -21,12 +21,12 @@
 
 ### Installation without docker
 1. Add `$GOPATH/bin` to your `$PATH`.
-2. Clone repo simple_collector
+2. Clone repository simple_collector
 3. Install dep (if not installed)
    ```bash
    go get -u github.com/golang/dep/cmd/dep
    ```
-4. Go to repo directory
+4. Go to repository directory
 5. Run
    ```bash
    cd cmd

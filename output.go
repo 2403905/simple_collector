@@ -18,22 +18,22 @@ type ResponseData struct {
 
 type Output struct {
 	ResponseData []*ResponseData
-	saver        func(resp []*ResponseData, outputFile string) error
+	writer       func(resp []*ResponseData, outputFile string) error
 }
 
-func NewOutput(saver func(resp []*ResponseData, outputFile string) error) (*Output, error) {
-	if saver == nil {
-		return nil, fmt.Errorf("saver not set")
+func NewOutput(writer func(resp []*ResponseData, outputFile string) error) (*Output, error) {
+	if writer == nil {
+		return nil, fmt.Errorf("writer not set")
 	}
-	return &Output{saver: saver}, nil
+	return &Output{writer: writer}, nil
 }
 
-func (s Output) saveResult(outputFile string) error {
+func (s Output) writeResult(outputFile string) error {
 	if len(s.ResponseData) == 0 {
 		return fmt.Errorf("there nothing to save")
 	}
 
-	return s.saver(s.ResponseData, outputFile)
+	return s.writer(s.ResponseData, outputFile)
 }
 
 func saveJson(resp []*ResponseData, outputFile string) error {
@@ -61,4 +61,16 @@ func writeFile(filename string, data []byte) (err error) {
 		logger.Get().Errorln(err)
 	}
 	return
+}
+
+func getWriter(t string) (func(resp []*ResponseData, outputFile string) error) {
+	switch t {
+	case "txt":
+		return saveText
+	case "json":
+		return saveJson
+	default:
+		logger.Get().Errorf("output type %s is not supported \n", t)
+		return nil
+	}
 }

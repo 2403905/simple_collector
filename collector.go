@@ -18,7 +18,7 @@ func Run(sourceFile, outputFile, outputFileType string) {
 	results := make(chan *ResponseData, maxWorkerCount)
 
 	// init output method
-	output, err := NewOutput(getSaver(outputFileType))
+	output, err := NewOutput(getWriter(outputFileType))
 	if err != nil {
 		logger.Get().Errorln(err)
 		os.Exit(1)
@@ -51,7 +51,7 @@ func Run(sourceFile, outputFile, outputFileType string) {
 	}
 
 	output.ResponseData = data
-	err = output.saveResult(outputFile)
+	err = output.writeResult(outputFile)
 	if err != nil {
 		logger.Get().Errorln(err)
 		os.Exit(1)
@@ -85,16 +85,4 @@ func Send(url string) (response *http.Response, latency time.Duration, err error
 	latency = time.Since(start)
 
 	return
-}
-
-func getSaver(t string) (func(resp []*ResponseData, outputFile string) error) {
-	switch t {
-	case "txt":
-		return saveText
-	case "json":
-		return saveJson
-	default:
-		logger.Get().Errorf("output type %s is not supported \n", t)
-		return nil
-	}
 }
