@@ -20,19 +20,24 @@
 
 
 ### Installation without docker
-1. Add `$GOPATH/bin` to your `$PATH`.
-2. Clone repository simple_collector
-3. Install dep (if not installed)
+1. Install golang
+2. Add `$GOPATH/bin` to your `$PATH`.
+3. Clone repository simple_collector
+4. Install dep (if not installed)
    ```bash
    go get -u github.com/golang/dep/cmd/dep
    ```
 4. Go to repository directory
-5. Run
+5. Run dep
+   ```bash
+   dep ensure -v
+   ```
+6. Run
    ```bash
    cd cmd
    go build && ./cmd -source source.txt -output output.json -t json
    ```
-6. Output
+7. Output
    ```bash
    cat output.json
    ```
