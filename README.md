@@ -18,7 +18,6 @@
    cat /tmp/simple_collector/output.txt
    ```
 
-
 ### Installation without docker
 1. Install golang
 2. Add `$GOPATH/bin` to your `$PATH`.

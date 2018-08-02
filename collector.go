@@ -14,9 +14,6 @@ var (
 )
 
 func Run(sourceFile, outputFile, outputFileType string) {
-	jobs := make(chan string, maxWorkerCount)
-	results := make(chan *ResponseData, maxWorkerCount)
-
 	// init output method
 	output, err := NewOutput(getWriter(outputFileType))
 	if err != nil {
@@ -33,6 +30,9 @@ func Run(sourceFile, outputFile, outputFileType string) {
 	if maxWorkerCount > len(u) {
 		maxWorkerCount = len(u)
 	}
+
+	jobs := make(chan string, maxWorkerCount)
+	results := make(chan *ResponseData, maxWorkerCount)
 
 	for w := 1; w <= maxWorkerCount; w++ {
 		go worker(jobs, results)
