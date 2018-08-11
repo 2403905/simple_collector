@@ -1,4 +1,6 @@
 # Simple Collector
+This application collect the short info by address list such as response code, latency, headers.
+Output formats txt, json.
 
 ### Installation with docker
 1. Install docker and docker-compose
