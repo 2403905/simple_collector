@@ -36,7 +36,7 @@ Output formats txt, json.
 6. Run
    ```bash
    cd cmd
-   go build && ./cmd -source source.txt -output output.json -t json
+   go build && ./cmd -source source.txt -output output.txt -t txt
    ```
 7. Output
    ```bash
