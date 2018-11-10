@@ -1,9 +1,9 @@
 # Simple Collector
-This application collect the short info by address list such as response code, latency, headers.
+This application collect the short info by address list such as response code, latency.
 Output formats txt, json.
 
 ### Installation with docker
-1. Install docker and docker-compose
+1. Install docker and docker-compose (if not installed)
 2. Clone repository simple_collector
 3. Go to repository directory
 4. Prepare i/o directory
@@ -21,7 +21,7 @@ Output formats txt, json.
    ```
 
 ### Installation without docker
-1. Install golang
+1. Install golang (if not installed)
 2. Add `$GOPATH/bin` to your `$PATH`.
 3. Clone repository simple_collector
 4. Install dep (if not installed)
@@ -40,5 +40,5 @@ Output formats txt, json.
    ```
 7. Output
    ```bash
-   cat output.json
+   cat output.txt
    ```
