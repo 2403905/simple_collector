@@ -6,20 +6,25 @@ import (
 	"simple_collector"
 	"github.com/vidmed/logger"
 	"strconv"
+	"time"
 )
 
 var (
-	sourceFile string
-	outputFile string
+	sourceFile     string
+	outputFile     string
 	outputFileType string
-	logLevel int
+	workersCount   int
+	timeout        int
+	logLevel       int
 )
 
 func init() {
 	flag.StringVar(&sourceFile, "source", "source.txt", "path to url sourceFile file")
 	flag.StringVar(&outputFile, "output", "output.txt", "path output file")
 	flag.StringVar(&outputFileType, "t", "txt", "type of output file")
-	flag.IntVar(&logLevel, "loglvl", 2, "log level panic = 0, fatal = 1, error = 2, warning = 3, info = 4, debug = 5")
+	flag.IntVar(&workersCount, "wc", 1000, "workersCount")
+	flag.IntVar(&timeout, "timeout", 60, "request timeout (second)")
+	flag.IntVar(&logLevel, "loglvl", 4, "log level panic = 0, fatal = 1, error = 2, warning = 3, info = 4, debug = 5")
 	flag.Parse()
 
 	Environment()
@@ -46,10 +51,27 @@ func Environment() {
 			logger.Get().Errorf("Can't convert environment variable LOG_LEVEL=%s to integer", l)
 		}
 	}
+	if l, ok := os.LookupEnv("WORKERS_COUNT"); ok {
+		var err error
+		workersCount, err = strconv.Atoi(l)
+		if err != nil {
+			logger.Get().Errorf("Can't convert environment variable WORKERS_COUNT=%s to integer", l)
+		}
+	}
+	if l, ok := os.LookupEnv("TIMEOUT"); ok {
+		var err error
+		timeout, err = strconv.Atoi(l)
+		if err != nil {
+			logger.Get().Errorf("Can't convert environment variable TIMEOUT=%s to integer", l)
+		}
+	}
 }
 
 func main() {
-	logger.Get().Infof("Application running with parameters: source = %s, output = %s, t = %s",
-		sourceFile, outputFile, outputFileType)
-	simple_collector.Run(sourceFile, outputFile, outputFileType)
+	start := time.Now()
+	logger.Get().Infof("Application running with parameters: source = %s, output = %s, t = %s, workersCount = %d, timeout = %d",
+		sourceFile, outputFile, outputFileType, workersCount, timeout)
+	simple_collector.Run(sourceFile, outputFile, outputFileType, workersCount, timeout)
+	elapsed := time.Since(start)
+	logger.Get().Infof("It took %s", elapsed)
 }

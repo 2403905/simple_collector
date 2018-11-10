@@ -1,7 +1,6 @@
 package simple_collector
 
 import (
-	"net/http"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,10 +9,9 @@ import (
 
 type ResponseData struct {
 	Url          string
-	ResponseCode int         `json:"response_code"`
-	Latency      string      `json:"latency"`
-	Headers      http.Header `json:"headers"`
-	Error        string      `json:"error"`
+	ResponseCode int    `json:"response_code"`
+	Latency      string `json:"latency"`
+	Error        string `json:"error"`
 }
 
 type Output struct {
@@ -48,8 +46,8 @@ func saveText(resp []*ResponseData, outputFile string) error {
 	var str string
 	for _, r := range resp {
 		str = str + fmt.Sprintf(
-			"url:%s code:%d, latency%s, headers:%v, error:%s \n",
-			r.Url, r.ResponseCode, r.Latency, r.Headers, r.Error)
+			"url:%s code:%d, latency:%s, error:%s \n",
+			r.Url, r.ResponseCode, r.Latency, r.Error)
 	}
 
 	return writeFile(outputFile, []byte(str))

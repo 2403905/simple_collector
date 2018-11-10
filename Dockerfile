@@ -1,4 +1,4 @@
-FROM golang:1.10.3
+FROM golang:1.11.2
 
 WORKDIR /go/src/simple_collector
 COPY Gopkg.lock Gopkg.toml /go/src/simple_collector/

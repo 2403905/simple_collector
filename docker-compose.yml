@@ -12,4 +12,6 @@ services:
       SOURCE_FILE: /source/source.txt
       OUTPUT_FILE: /output/output.txt
       OUTPUT_FILE_TYPE: txt
+      WORKERS_COUNT: 1000
+      TIMEOUT: 60
       LOG_LEVEL: 5
